@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "e5b4bcc7-ee8d-4251-b556-16e048b3ffa3",
+		"name": "nodejs_basic_auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15502331"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "fghfgh@dgf.dsfg",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234567",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "fghfgh@dgf.dsfg",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "dhgfg",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "fghh",
+							"type": "text"
+						},
+						{
+							"key": "dob",
+							"value": "2024-01-01",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "gjgh",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "yuiyukyuk",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "tjtgh",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "ykjmhj",
+							"type": "text"
+						},
+						{
+							"key": "is_signed_agreements",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "identity_doc",
+							"type": "file",
+							"src": "/C:/Users/Spaculus/Desktop/dummy images/download (1).jpg"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify_otp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "65fa8e40b5e9d83228f6c496",
+							"type": "text"
+						},
+						{
+							"key": "otp",
+							"value": "2131",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/verify_otp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"verify_otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resend_verification_code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "65fa8e40b5e9d83228f6c496",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/resend_verification_code",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"resend_verification_code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forgot_password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "fghfgh@dgf.dsfg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/forgot_password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"forgot_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset_password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "1234567",
+							"type": "text"
+						},
+						{
+							"key": "otp",
+							"value": "5488",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/reset_password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"reset_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZhOGU0MGI1ZTlkODMyMjhmNmM0OTYiLCJfaWQiOiI2NWZhOGU0MGI1ZTlkODMyMjhmNmM0OTYiLCJmaXJzdF9uYW1lIjoiZGhnZmciLCJsYXN0X25hbWUiOiJmZ2hoIiwiZW1haWwiOiJmZ2hmZ2hAZGdmLmRzZmciLCJpYXQiOjE3MTA5MTk3MzcsImV4cCI6MTcxMDkzNzczN30.ggyaTEoeTEPpUnh0xdn8gaCKR7eO2WvLirIe73lJraw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3001/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZhOGU0MGI1ZTlkODMyMjhmNmM0OTYiLCJfaWQiOiI2NWZhOGU0MGI1ZTlkODMyMjhmNmM0OTYiLCJmaXJzdF9uYW1lIjoiZGhnZmciLCJsYXN0X25hbWUiOiJmZ2hoIiwiZW1haWwiOiJmZ2hmZ2hAZGdmLmRzZmciLCJpYXQiOjE3MTA5MTk3MzcsImV4cCI6MTcxMDkzNzczN30.ggyaTEoeTEPpUnh0xdn8gaCKR7eO2WvLirIe73lJraw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "fghfgh@dgf.dsfg",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "rtrtyrtrt",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "tttttt rrrrrrrrrrrrrrrrrr",
+							"type": "text"
+						},
+						{
+							"key": "dob",
+							"value": "2020-05-28",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "fghfgh",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "fghgnh",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "mhjhjhgjhg",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "rt5y",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/update_profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"update_profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_kyc",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZhOGU0MGI1ZTlkODMyMjhmNmM0OTYiLCJfaWQiOiI2NWZhOGU0MGI1ZTlkODMyMjhmNmM0OTYiLCJmaXJzdF9uYW1lIjoiZGhnZmciLCJsYXN0X25hbWUiOiJmZ2hoIiwiZW1haWwiOiJmZ2hmZ2hAZGdmLmRzZmciLCJpYXQiOjE3MTA5MTk3MzcsImV4cCI6MTcxMDkzNzczN30.ggyaTEoeTEPpUnh0xdn8gaCKR7eO2WvLirIe73lJraw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "identity_doc",
+							"type": "file",
+							"src": [
+								"/C:/Users/Spaculus/Desktop/dummy images/images (1).jpg",
+								"/C:/Users/Spaculus/Desktop/dummy images/images (2).jpg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/update_kyc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"update_kyc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
