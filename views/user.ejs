@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/stylesheets/stylesdraw.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script> -->
+    <!-- <script type="text/javascript" src="/javascripts/js_socket.js"></script> -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/dashboard">Login App</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="profile">Profile</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="">
+                <h2>Update User</h2>
+                <form class="form-horizontal" action="/update_profile" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Email:</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"
+                                value="<%= usersProfile.email%>" readonly disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="firstName">FirstName:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter firstName"
+                                name="firstName" value="<%= usersProfile.firstName%>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="lastName">LastName:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter lastName"
+                                name="lastName" value="<%= usersProfile.lastName%>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                        <label class="control-label col-sm-2" for="image"></label>
+                        <div class="col-sm-10">
+                            <div class="custom-file" id="allfiles">
+                                <!-- <div class="form-group" style="display: none;" ></div> -->
+                                <!-- <input type="file" class="custom-file-input" id="file" multiple
+                                    onchange="javascript:updateList()" name="profiles" /> -->
+                                <label class="custom-file-label" for="file" id="addImage">
+                                    <img width="30" src="images/add_image.png" />
+                                    Add Image
+                                </label>
+                            </div>
+                            <ul id="fileList" class="file-list"></ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="mt-3">
+                    <% for(let itm of usersProfile.images) {%>
+                        <div class="col-md-2">
+                            <img src="<%= usersProfile.id %>/<%= itm %>" class="mainimg img img-thumbnail" alt="<%= itm %>">
+                            <span><%= itm %></span>
+                        </div>
+                     <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="javascripts/script.js"></script>
+
+</body>
+
+</html>

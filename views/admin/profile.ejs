@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <%= SITEDATA.title %> | <%= title %>
+    </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        <%- include('layouts/navbar') -%>
+
+            <%- include('layouts/sidebar') -%>
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1>
+                                        <%= title %>
+                                    </h1>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                                        <li class="breadcrumb-item active">
+                                            <%= title %>
+                                        </li>
+                                    </ol>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div><!-- /.container-fluid -->
+                    </section>
+
+                    <!-- Main content -->
+                    <section class="content">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <!-- Profile Image -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-body box-profile">
+                                            <div class="text-center">
+                                                <img class="profile-user-img img-fluid img-circle"
+                                                    src="/admin/dist/img/userprofile.jpg" alt="User profile picture">
+                                            </div>
+
+                                            <h3 class="profile-username text-center">
+                                                <%= currentUser.first_name %>
+                                                    <%= currentUser.last_name %>
+                                            </h3>
+
+                                            <p class="text-muted text-center">
+                                                <%= currentUser.email %>
+                                            </p>
+                                            <p class="text-muted text-center">Super Admin</p>
+
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-9">
+                                    <div class="card">
+                                        <div class="card-header p-2">
+                                            <ul class="nav nav-pills">
+                                                <li class="nav-item"><a class="nav-link active" href="#settings"
+                                                        data-toggle="tab">Settings</a></li>
+                                            </ul>
+                                        </div><!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <div class="active tab-pane" id="settings">
+                                                    <form id="profileForm" class="form-horizontal" method="post"
+                                                        action="/admin/update/<%= currentUser._id %>">
+                                                        <div class="form-group row">
+                                                            <label for="inputFirstName"
+                                                                class="col-sm-2 col-form-label">FirstName
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputFirstName" placeholder="FirstName"
+                                                                    name="first_name"
+                                                                    value="<%= currentUser.first_name %>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputLastName"
+                                                                class="col-sm-2 col-form-label">LastName
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputLastName" placeholder="LastName"
+                                                                    name="last_name"
+                                                                    value="<%= currentUser.last_name %>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail"
+                                                                class="col-sm-2 col-form-label">Email
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="email" class="form-control" id="inputEmail"
+                                                                    placeholder="Email" name="email"
+                                                                    value="<%= currentUser.email %>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="password"
+                                                                class="col-sm-2 col-form-label">Password
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="password" class="form-control"
+                                                                    id="password" placeholder="Password"
+                                                                    name="password">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputpassword_confirm"
+                                                                class="col-sm-2 col-form-label">Confirm Password
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="password" class="form-control"
+                                                                    id="inputpassword_confirm"
+                                                                    placeholder="Confirm Password"
+                                                                    name="password_confirm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="offset-sm-2 col-sm-10">
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /.tab-pane -->
+                                            </div>
+                                            <!-- /.tab-content -->
+                                        </div><!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div><!-- /.container-fluid -->
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
+
+                <%- include('layouts/footer') -%>
+
+                    <!-- Control Sidebar -->
+                    <aside class="control-sidebar control-sidebar-dark">
+                        <!-- Control sidebar content goes here -->
+                    </aside>
+                    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="/admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/admin/dist/js/adminlte.min.js"></script>
+    <script>
+        var pageTitle = "<%= activeSidebar %>";
+        var successMsg = "<%= successMsg %>";
+        var errorMsg = "<%= errorMsg %>";
+    </script>
+    <script src="/admin/js/activeSidebar.js"></script>
+    <script src="/admin/js/toasts.js"></script>
+    <!-- jquery-validation -->
+    <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/admin/plugins/jquery-validation/additional-methods.min.js"></script>
+
+    <!-- Page specific script -->
+    <script>
+        $(function () {
+            /* $.validator.setDefaults({
+                submitHandler: function () {
+                    alert("Form successful submitted!");
+                }
+            }); */
+            $('#profileForm').validate({
+                rules: {
+                    first_name: {
+                        required: true,
+                        maxlength: 30,
+                    },
+                    last_name: {
+                        required: true,
+                        maxlength: 30,
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        maxlength: 30,
+                    },
+                    password: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 30,
+                    },
+                    password_confirm: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 30,
+                        equalTo: "#password"
+                    }
+                },
+                messages: {
+                    first_name: {
+                        required: "Please enter a first name",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    last_name: {
+                        required: "Please enter a last name",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    email: {
+                        required: "Please enter a email address",
+                        email: "Please enter a valid email address",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    password_confirm: {
+                        required: "Please provide a confirm password",
+                        minlength: "Your password must be at least 5 characters long",
+                        maxlength: "maxLength is 30 characters",
+                        equalTo: "Password and confirm password must be match",
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('div').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

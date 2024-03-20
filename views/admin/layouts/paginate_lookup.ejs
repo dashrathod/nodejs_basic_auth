@@ -1,0 +1,69 @@
+<% if (dataList.totalPages> 0) { %>
+    <ul class="pagination pagination-sm m-0 float-right">
+        <% if (dataList.page==1) { %>
+            <li class="page-item disabled">
+                <a class="page-link">First</a>
+            </li>
+            <% } else { %>
+                <li class="page-item">
+                    <button class="page-link" onclick="myFunction(1)">First</button>
+                </li>
+
+                <% if (dataList.hasPrevPage) { %>
+                    <li class="page-item">
+                        <button class="page-link" onclick="myFunction('<%= dataList.page-1 %>')">&laquo;</button>
+                    </li>
+                    <% } %>
+
+                        <% } %>
+                            <% var i=(Number(dataList.page)> 5 ? Number(dataList.page) - 4 : 1) %>
+                                <% if (i !==1) { %>
+                                    <li class="page-item disabled">
+                                        <a class="page-link">...</a>
+                                    </li>
+                                    <% } %>
+                                        <% for (; i <=(Number(dataList.page) + 4) && i <=dataList.totalPages; i++) { %>
+                                            <% if (i==dataList.page) { %>
+                                                <li class="page-item active">
+                                                    <button class="page-link">
+                                                        <%= i %>
+                                                    </button>
+                                                </li>
+                                                <% } else { %>
+                                                    <li class="page-item">
+                                                        <button class="page-link" onclick="myFunction('<%= i %>')">
+                                                            <%= i %>
+                                                        </button>
+                                                    </li>
+                                                    <% } %>
+                                                        <% if (i==Number(dataList.page) + 4 && i < dataList.totalPages)
+                                                            { %>
+                                                            <li class="page-item disabled">
+                                                                <a class="page-link">...</a>
+                                                            </li>
+                                                            <% } %>
+                                                                <% } %>
+                                                                    <% if (dataList.page==dataList.totalPages) { %>
+                                                                        <li class="page-item disabled">
+                                                                            <a class="page-link">Last</a>
+                                                                        </li>
+                                                                        <% } else { %>
+
+                                                                            <% if (dataList.hasNextPage) { %>
+                                                                                <li class="page-item">
+                                                                                    <button class="page-link"
+                                                                                        onclick="myFunction('<%= dataList.page+1 %>')">
+                                                                                        &raquo;
+                                                                                    </button>
+                                                                                </li>
+                                                                                <% } %>
+
+                                                                                    <li class="page-item ">
+                                                                                        <button class="page-link"
+                                                                                            onclick="myFunction('<%= dataList.totalPages %>')">
+                                                                                            Last
+                                                                                        </button>
+                                                                                    </li>
+                                                                                    <% } %>
+    </ul>
+    <% } %>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <%= SITEDATA.title %> | <%= title %>
+    </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/admin/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        <%- include('../layouts/navbar') -%>
+
+            <%- include('../layouts/sidebar') -%>
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1>
+                                        <% if(userData && id){ %>
+                                            <%= title %>
+                                                <% } else{ %>
+                                                    User Add
+                                                    <% } %>
+                                    </h1>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/admin/users">User List</a></li>
+                                        <li class="breadcrumb-item active">
+                                            <% if(userData && id){ %>
+                                                <%= title %>
+                                                    <% } else{ %>
+                                                        User Add
+                                                        <% } %>
+                                        </li>
+                                    </ol>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div><!-- /.container-fluid -->
+                    </section>
+
+                    <!-- Main content -->
+                    <section class="content">
+
+                        <div class=""> <!-- container-fluid -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <% if(userData && id){ %>
+                                                    <%= title %>
+                                                        <% } else{ %>
+                                                            User Add
+                                                            <% } %>
+                                            </h3>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <% if(userData && id){ %>
+                                                <form id="userForm" class="form-horizontal" method="post"
+                                                    action="/admin/users/update/<%= userData._id %>">
+                                                    <% } else{ %>
+                                                        <form id="userForm" class="form-horizontal" method="post"
+                                                            action="/admin/users/add">
+                                                            <% } %>
+                                                                <div class="card-body">
+                                                                    <div class="form-group row">
+                                                                        <label for="first_name"
+                                                                            class="col-sm-2 col-form-label">first
+                                                                            name <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="first_name" placeholder="first name"
+                                                                                name="first_name"
+                                                                                value="<%= userData.first_name %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="last_name"
+                                                                            class="col-sm-2 col-form-label">last
+                                                                            name <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="last_name" placeholder="last name"
+                                                                                name="last_name"
+                                                                                value="<%= userData.last_name %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="date_of_birth"
+                                                                            class="col-sm-2 col-form-label">Date
+                                                                            of
+                                                                            Birthday <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-4">
+                                                                            <!-- <input type="date" class="form-control"
+                                                                                id="dob" placeholder="Date of Birthday"
+                                                                                name="dob" value="<%= userData.dob %>"
+                                                                                max="today"> -->
+                                                                            <div class="input-group date" id="dob"
+                                                                                data-target-input="nearest">
+                                                                                <input type="text" id="date_of_birth"
+                                                                                    class="form-control datetimepicker-input"
+                                                                                    data-target="#dob" name="dob"
+                                                                                    data-inputmask-alias="datetime"
+                                                                                    data-inputmask-inputformat="mm/dd/yyyy"
+                                                                                    data-mask value=""
+                                                                                    autocomplete="off" />
+                                                                                <div class="input-group-append"
+                                                                                    data-target="#dob"
+                                                                                    data-toggle="datetimepicker">
+                                                                                    <div class="input-group-text"><i
+                                                                                            class="fa fa-calendar"></i>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="phone_number"
+                                                                            class="col-sm-2 col-form-label">Phone
+                                                                            Number <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text"
+                                                                                class="numericOnly form-control"
+                                                                                id="phone_number"
+                                                                                placeholder="Phone Number"
+                                                                                name="phone_number"
+                                                                                value="<%= userData.phone_number %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="inputEmail3"
+                                                                            class="col-sm-2 col-form-label">Email <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="email" class="form-control"
+                                                                                id="inputEmail3" placeholder="Email"
+                                                                                name="email"
+                                                                                value="<%= userData.email %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="inputPassword3"
+                                                                            class="col-sm-2 col-form-label">Password</label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="password" class="form-control"
+                                                                                id="inputPassword3"
+                                                                                placeholder="Password" name="password">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="c_password"
+                                                                            class="col-sm-2 col-form-label">Confirm
+                                                                            Password</label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="password" class="form-control"
+                                                                                id="c_password"
+                                                                                placeholder="Confirm Password"
+                                                                                name="c_password">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="country"
+                                                                            class="col-sm-2 col-form-label">Country
+                                                                            <span class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <select class="form-control select2"
+                                                                                style="width: 100%;" id="country"
+                                                                                name="country"
+                                                                                value="<%= userData.country %>">
+                                                                                <option value="United States" selected>
+                                                                                    United
+                                                                                    States</option>
+                                                                            </select>
+                                                                            <!-- <input type="text" class="form-control"
+                                                                                id="country" placeholder="Country"
+                                                                                name="country"
+                                                                                value="<%= userData.country %>"> -->
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="state"
+                                                                            class="col-sm-2 col-form-label">State <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <select class="form-control select2States"
+                                                                                style="width: 100%;" id="state"
+                                                                                value="<%= userData.state %>"
+                                                                                name="state">
+                                                                                <option value="">Select state</option>
+                                                                            </select>
+                                                                            <!-- <input type="text" class="form-control"
+                                                                                id="state" placeholder="State"
+                                                                                name="state"
+                                                                                value="<%= userData.state %>"> -->
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="city"
+                                                                            class="col-sm-2 col-form-label">City <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <select class="form-control select2City"
+                                                                                style="width: 100%;" id="city"
+                                                                                value="<%= userData.city %>"
+                                                                                name="city">
+                                                                                <option value="">Select city</option>
+                                                                            </select>
+                                                                            <!-- <input type="text" class="form-control"
+                                                                                id="city" placeholder="City" name="city"
+                                                                                value="<%= userData.city %>"> -->
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="address"
+                                                                            class="col-sm-2 col-form-label">Address
+                                                                            <span class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="address" placeholder="Address"
+                                                                                name="address"
+                                                                                value="<%= userData.address %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="is_verified"
+                                                                            class="col-sm-2 col-form-label">Is
+                                                                            Verified <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <select class="custom-select"
+                                                                                name="is_verified" id="is_verified">
+                                                                                <option <%-
+                                                                                    (userData.is_verified==1)?'selected':''
+                                                                                    -%>
+                                                                                    value="1">True</option>
+                                                                                <option <%-
+                                                                                    (userData.is_verified==0)?'selected':''
+                                                                                    -%>
+                                                                                    value="0">False</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="is_document_verified"
+                                                                            class="col-sm-2 col-form-label">Is
+                                                                            Document Verified <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-9">
+                                                                            <select class="custom-select"
+                                                                                name="is_document_verified"
+                                                                                id="is_document_verified">
+                                                                                <option <%-
+                                                                                    (userData.is_document_verified==1)?'selected':''
+                                                                                    -%>
+                                                                                    value="1">True</option>
+                                                                                <option <%-
+                                                                                    (userData.is_document_verified==0)?'selected':''
+                                                                                    -%>
+                                                                                    value="0">False</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-sm-1 text-right"
+                                                                            title="Show Documents">
+                                                                            <span data-toggle="modal"
+                                                                                data-target="#modal-docs"
+                                                                                class="fa fa-th"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="role"
+                                                                            class="col-sm-2 col-form-label">Role <span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-10">
+                                                                            <select class="custom-select" name="role"
+                                                                                id="role">
+                                                                                <option <%-
+                                                                                    (userData.role==1)?'selected':'' -%>
+                                                                                    value="1">Renter</option>
+                                                                                <option <%-
+                                                                                    (userData.role==2)?'selected':'' -%>
+                                                                                    value="2">Host</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <% if(userData.role==2){ %>
+                                                                        <div class="form-group row">
+                                                                            <label for="role"
+                                                                                class="col-sm-2 col-form-label">QR
+                                                                                Image</label>
+                                                                            <div class="col-sm-10">
+                                                                                <img class="img img-thumbnail"
+                                                                                    src="<%= userData.qr_data %>"
+                                                                                    alt="qr_data"
+                                                                                    srcset="<%= userData.qr_data %>">
+                                                                                <br>
+                                                                                <a href="<%= userData.qr_url %>"
+                                                                                    target="_blank">
+                                                                                    <%= userData.qr_url %>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <% } %>
+                                                                </div>
+                                                                <!-- /.card-body -->
+                                                                <div class="card-footer">
+                                                                    <input type="submit" id="submitForm"
+                                                                        class="btn btn-info" value="Submit">
+                                                                </div>
+                                                                <!-- /.card-footer -->
+                                                        </form>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer clearfix">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
+
+                <%- include('../layouts/footer') -%>
+                    <%- include('./userDocuments') -%>
+
+                        <!-- Control Sidebar -->
+                        <aside class="control-sidebar control-sidebar-dark">
+                            <!-- Control sidebar content goes here -->
+                        </aside>
+                        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="/admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/admin/dist/js/adminlte.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/admin/plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- InputMask -->
+    <script src="/admin/plugins/moment/moment.min.js"></script>
+    <script src="/admin/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Select2 -->
+    <script src="/admin/plugins/select2/js/select2.full.min.js"></script>
+
+    <script>
+        var pageTitle = "<%= activeSidebar %>";
+        var successMsg = "<%= successMsg %>";
+        var errorMsg = "<%= errorMsg %>";
+    </script>
+
+    <script src="/admin/js/activeSidebar.js"></script>
+    <script src="/admin/js/toasts.js"></script>
+
+    <script>
+        //checks exists
+        function checkExistData(id) {
+            if ($(id).val()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        $(function () {
+            $(".numericOnly").keypress(function (e) {
+                if (String.fromCharCode(e.keyCode).match(/[^0-9+]/g)) return false;
+            });
+
+            /* $.validator.setDefaults({
+                submitHandler: function () {
+                    alert("Form successful submitted!");
+                }
+            }); */
+            $('#userForm').validate({
+                rules: {
+                    first_name: {
+                        required: true,
+                        maxlength: 30,
+                    },
+                    last_name: {
+                        required: true,
+                        maxlength: 30,
+                    },
+                    email: {
+                        email: true,
+                        maxlength: 30,
+                        required: () => {
+                            // return true or false depending on whether it's required or not
+                            return !$('#phone_number').val();
+                        },
+                    },
+                    phone_number: {
+                        maxlength: 16,
+                        required: () => {
+                            // return true or false depending on whether it's required or not
+                            return !$('#inputEmail3').val();
+                        },
+                    },
+                    dob: {
+                        required: true,
+                        date: true,
+                    },
+                    address: {
+                        maxlength: 100,
+                        required: true,
+                    },
+                    city: {
+                        maxlength: 30,
+                        required: true,
+                    },
+                    state: {
+                        maxlength: 30,
+                        required: true,
+                    },
+                    country: {
+                        maxlength: 30,
+                        required: true,
+                    },
+                    password: {
+                        // required: true,
+                        minlength: 5,
+                        maxlength: 30,
+                    },
+                    c_password: {
+                        // required: true,
+                        minlength: 5,
+                        maxlength: 30,
+                        equalTo: "#inputPassword3"
+                    },
+                },
+                messages: {
+                    first_name: {
+                        required: "Please enter a first name",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    last_name: {
+                        required: "Please enter a last name",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    email: {
+                        required: "Please enter a email address",
+                        email: "Please enter a valid email address",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long",
+                        maxlength: "maxLength is 30 characters",
+                    },
+                    c_password: {
+                        required: "Please provide a confirm password",
+                        minlength: "Your password must be at least 5 characters long",
+                        maxlength: "maxLength is 30 characters",
+                        equalTo: "Password and confirm password must be match",
+                    },
+                    phone_number: {
+                        required: "Please enter a phone number",
+                    },
+                    dob: {
+                        required: "Please select date of birthday",
+                    },
+                    country: {
+                        required: "Please select country",
+                    },
+                    state: {
+                        required: "Please select state",
+                    },
+                    city: {
+                        required: "Please select city",
+                    },
+                    address: {
+                        required: "Please enter an address",
+                        // maxlength: "maxLength is 100 characters",
+                    },
+                    is_verified: {
+                        required: "Please select is verified",
+                    },
+                    is_document_verified: {
+                        required: "Please select is document verified",
+                    },
+                    role: {
+                        required: "Please select role",
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('div').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+        $(function () {
+
+            $('#date_of_birth').attr("autocomplete", "off").focus(function () {
+                $(this).prop("autocomplete", "off");
+                return false;
+            })
+
+            $('[type="date"]').prop('max', function () {
+                return new Date().toJSON().split('T')[0];
+            });
+            var dob = "<%= userData.dob %>";
+            if (dob) {
+                $('[type="date"]').prop('value', function () {
+                    return new Date(dob).toJSON().split('T')[0];
+                });
+                $('#dob').datetimepicker({
+                    locale: 'us',
+                    format: 'L',
+                    viewMode: 'years',
+                    maxDate: new Date(),
+                    date: dob,
+                });
+            }
+
+            //Date picker
+            $('#dob').datetimepicker({
+                locale: 'us',
+                format: 'L',
+                viewMode: 'years',
+                maxDate: new Date(),
+            });
+            $('[data-mask]').inputmask()
+        });
+
+        $(document).ready(function () {
+            /* Inputmask("9{2}[-]9{2}[-]9{4}", {
+                placeholder: "XX-XX-XXXX",
+                greedy: false
+            }).mask('#phone_number'); */
+
+            $("#phone_number").inputmask({ "mask": "+1(999) 999-9999" });
+
+            //Initialize Select2 Elements
+            $('.select2').select2({
+                theme: 'bootstrap4',
+                placeholder: 'Select allowed countries',
+                selectOnClose: false,
+                tags: false,
+                tokenSeparators: [',', ' '],
+                /* ajax: {
+                    dataType: "json",
+                    url: "includes/countries.json",
+                }, */
+            });
+
+            initializeStateData();
+            async function initializeStateData() {
+                var cur_state = "<%= userData.state %>";
+                cur_state = cur_state.trim()
+                await fetch(`/admin/jsonData/countries_states_us.json`)
+                    .then(response => response.json())
+                    .then(async (data) => {
+                        await data.results.forEach((itm, index) => {
+                            if (itm.type == "state") {
+                                let selected = (cur_state == itm.text) ? 'selected' : '';
+                                if (selected == 'selected') {
+                                    cityinit(itm.id);
+                                    $(".select2City").val(null).trigger('change');
+                                }
+                                $('.select2States').append(`
+                                <option value="${itm.text}" data-custom-attribute="${itm.id}" ${selected}>${itm.text}</option>
+                                `);
+                            }
+                        });
+                    });
+
+                var $mySelect2 = $('.select2States').select2({
+                    // minimumInputLength: 2,
+                    cache: true,
+                    theme: 'bootstrap4',
+                    placeholder: 'Select state',
+                    selectOnClose: false,
+                    tags: false,
+                    tokenSeparators: [',', ' '],
+                    templateSelection: function (data, container) {
+                        // Add custom attributes to the <option> tag for the selected option
+                        $(data.element).attr('data-stateId', $(data.element).data()?.customAttribute);
+                        return data.text;
+                    },
+                });
+            }
+
+            /* var $mySelect2 = $('.select2States').select2({
+                // minimumInputLength: 2,
+                cache: true,
+                theme: 'bootstrap4',
+                placeholder: 'Select state',
+                selectOnClose: false,
+                tags: false,
+                tokenSeparators: [',', ' '],
+                templateSelection: function (data, container) {
+                    // Add custom attributes to the <option> tag for the selected option
+                    $(data.element).attr('data-custom-attribute', data.id);
+                    return data.text;
+                },
+                ajax: {
+                    dataType: "json",
+                    url: "/admin/jsonData/countries_states_us.json",
+                    processResults: function (data, params) {
+                        if (params.term) {
+                            let datas_filtered = data.results.filter((itm) => {
+                                return itm.text.toLowerCase().indexOf(params.term.toLowerCase()) >= 0;
+                            });
+                            return { "results": datas_filtered };
+                        } else {
+                            return data;
+                        }
+                    },
+                },
+            }); */
+
+            /* var option = new Option('California', 'California', true, true);
+            $mySelect2.append(option).trigger('change'); */
+
+            // manually trigger the `select2:select` event
+            /* $('.select2States').trigger({
+                type: 'select2:select',
+                params: {
+                    data: { text: 'California', id: 'California' }
+                }
+            }); */
+
+
+            $('.select2States').on("select2:select", function (e) {
+                var theID = $('.select2States').find(':selected').data('custom-attribute');
+                $('.select2City').html('<option value="">Select city</option>');
+                cityinit(theID);
+                $(".select2City").val(null).trigger('change');
+            });
+
+            async function cityinit(theID) {
+                var cur_city = "<%= userData.city %>";
+                await fetch(`/admin/jsonData/results.json`)
+                    .then(response => response.json())
+                    .then(async (data) => {
+                        let datas_filtered = data.filter((itm) => {
+                            return itm.id == theID;
+                        });
+                        datas_filtered[0].cities.forEach((itm) => {
+                            let selected = (cur_city == itm.name) ? 'selected' : '';
+                            $('.select2City').append(`
+                            <option value="${itm.name}" data-custom-city-attribute="${itm.id}" ${selected}>${itm.name}</option>
+                            `);
+                        });
+                    });
+
+                var $mySelect2 = $('.select2City').select2({
+                    // minimumInputLength: 2,
+                    cache: true,
+                    theme: 'bootstrap4',
+                    placeholder: 'Select city',
+                    selectOnClose: false,
+                    tags: false,
+                    delay: 200,
+                    tokenSeparators: [',', ' '],
+                    templateSelection: function (data, container) {
+                        // Add custom attributes to the <option> tag for the selected option
+                        $(data.element).attr('data-cityId', $(data.element).data()?.customCityAttribute);
+                        return data.text;
+                    },
+                });
+            }
+            function cityinitOld(theID) {
+                $('.select2City').select2({
+                    // minimumInputLength: 2,
+                    cache: true,
+                    theme: 'bootstrap4',
+                    placeholder: 'Select city',
+                    selectOnClose: false,
+                    tags: false,
+                    delay: 200,
+                    tokenSeparators: [',', ' '],
+                    ajax: {
+                        dataType: "json",
+                        url: "/admin/jsonData/states_cities_us.json",
+                        processResults: function (data, params) {
+                            if (params.term) {
+                                let datas_filtered = data.filter((itm) => {
+                                    return itm.id == theID;
+                                });
+                                let final_datas_filtered = datas_filtered[0].cities.map((itm) => {
+                                    return {
+                                        id: itm.id,
+                                        text: itm.name,
+                                    };
+                                });
+
+                                final_datas_filtered = final_datas_filtered.filter((itm) => {
+                                    return itm.text.toLowerCase().indexOf(params.term.toLowerCase()) >= 0;
+                                });
+                                return { "results": final_datas_filtered };
+                            } else {
+                                let datas_filtered = data.filter((itm) => {
+                                    return itm.id == theID;
+                                });
+                                let final_datas_filtered = datas_filtered[0].cities.map((itm) => {
+                                    return {
+                                        id: itm.id,
+                                        text: itm.name,
+                                    };
+                                });
+                                return { "results": final_datas_filtered };
+                            }
+                        },
+                    },
+                });
+            }
+
+            /* $('#submitForm').click(function () {
+                var state = $('.select2States').select2("data");
+                var name = state.shift().text;
+                $('.select2States').val(name);
+                $(".select2States").val(name).trigger('change');
+                // $('.select2States')
+                $('#userForm').submit();
+            }); */
+
+        });
+    </script>
+
+    <div class="alert alert-info" style="display: none;"></div>
+</body>
+
+</html>

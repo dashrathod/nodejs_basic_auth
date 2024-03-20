@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <%= SITEDATA.title %> | <%= title %>
+    </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        <%- include('../layouts/navbar') -%>
+
+            <%- include('../layouts/sidebar') -%>
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1>
+                                        User
+                                    </h1>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                                        <li class="breadcrumb-item active">
+                                            User
+                                        </li>
+                                    </ol>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div><!-- /.container-fluid -->
+                    </section>
+
+                    <!-- Main content -->
+                    <section class="content">
+
+                        <div class=""> <!-- container-fluid -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header ">
+                                            <div class="row mb-3">
+                                                <div class="offset-md-8 col-md-4">
+                                                    <a href="/admin/users/edit" class="btn btn-primary float-right">
+                                                        <i class="fas fa-plus"></i> Add New User
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="input-group input-group-sm">
+                                                        <input id="search_box" type="text" name="table_search"
+                                                            class="form-control float-right" placeholder="Search">
+
+                                                        <div class="input-group-append">
+                                                            <button id="search_btn" type="search"
+                                                                class="btn btn-default">
+                                                                <i class="fas fa-search"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group input-group-sm">
+                                                        <select class="custom-select" name="document_by"
+                                                            id="document_by">
+                                                            <option value="">Filter By Document</option>
+                                                            <option value="1">Verified</option>
+                                                            <option value="0">Un-Verified</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="offset-md-1 col-md-1">
+                                                    <div class="input-group input-group-sm">
+                                                        <select class="custom-select" name="order_by" id="order_by">
+                                                            <option value="-1" selected>Newest</option>
+                                                            <option value="1">Oldest</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body table-responsive p-0">
+                                            <table
+                                                class="table table-head-fixed table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>Role</th>
+                                                        <th>Status</th>
+                                                        <th>Document</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% dataList.docs.forEach(function(itm){ %>
+                                                        <tr>
+                                                            <td>
+                                                                <%= itm.first_name %>
+                                                                    <%= itm.last_name %>
+                                                            </td>
+                                                            <td>
+                                                                <%= itm.email %>
+                                                            </td>
+                                                            <td>
+                                                                <%= itm.phone_number %>
+                                                            </td>
+                                                            <td>
+                                                                <%= (itm.role==1)?"User":"Host" %>
+                                                            </td>
+                                                            <td>
+                                                                <%= (itm.is_verified==1)?"Enabled":"Disabled" %>
+                                                            </td>
+                                                            <td>
+                                                                <%= (itm.is_document_verified==1)?"Verified":"Un-Verified"
+                                                                    %>
+                                                            </td>
+                                                            <td>
+                                                                <a class="text-info"
+                                                                    href="/admin/users/edit/<%= itm._id %>">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                <span class="text-info"
+                                                                    onClick="removeUser('/admin/users/remove/<%= itm._id %>')">
+                                                                    <i class="pl-2 fa fa-trash"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                            <% if(dataList.docs.length==0){ %>
+                                                                <tr>
+                                                                    <td colspan="7">
+                                                                        <h1>
+                                                                            No Data Found
+                                                                        </h1>
+                                                                    </td>
+                                                                </tr>
+                                                                <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer clearfix">
+                                            <%- include('../layouts/paginate_lookup') -%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
+
+                <%- include('../layouts/footer') -%>
+
+                    <div class="modal fade" id="modal-docs">
+                        <div class="modal-dialog modal-docs">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">User Documents</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img id="doc_image" class="card-img-top" src="" alt="doc image" />
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+
+
+                    <!-- Control Sidebar -->
+                    <aside class="control-sidebar control-sidebar-dark">
+                        <!-- Control sidebar content goes here -->
+                    </aside>
+                    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="/admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/admin/dist/js/adminlte.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+        var pageTitle = "<%= activeSidebar %>";
+        var successMsg = "<%= successMsg %>";
+        var errorMsg = "<%= errorMsg %>";
+        var search_string = "<%= search_string %>";
+        var document_by = "<%= document_by %>";
+        var order_by = "<%= order_by %>";
+        $('#search_btn').click(function () {
+            let search = $('#search_box').val();
+            let doc = $('#document_by').val();
+            let order = $('#order_by').val();
+            let url = `/admin/users?search_string=${encodeURIComponent(search)}`;
+            if (doc) {
+                url += `&&document_by=${encodeURIComponent(doc || '')}`;
+            }
+            if (order) {
+                url += `&&order_by=${encodeURIComponent(order)}`;
+            }
+            window.location.href = url;
+        })
+        $('#document_by,#order_by').change(function () {
+            let search = $('#search_box').val();
+            let doc = $('#document_by').val();
+            let order = $('#order_by').val();
+            let url = `/admin/users?search_string=${encodeURIComponent(search)}`;
+            if (doc) {
+                url += `&&document_by=${encodeURIComponent(doc || '')}`;
+            }
+            if (order) {
+                url += `&&order_by=${encodeURIComponent(order)}`;
+            }
+            window.location.href = url;
+        })
+        $('#search_box').val("<%= search_string %>");
+        $('#document_by').val((document_by) ? (document_by == 'false') ? '0' : '1' : '');
+        $('#order_by').val(order_by || '-1');
+
+        function myFunction(page) {
+            let url = `/admin/users?search_string=${encodeURIComponent(search_string)}&page=${encodeURIComponent(page)}`;
+            if (document_by) {
+                url += `&&document_by=${encodeURIComponent(document_by || '')}`;
+            }
+            if (order_by) {
+                url += `&&order_by=${encodeURIComponent(order_by)}`;
+            }
+            window.location.href = url;
+        }
+
+        function removeUser(url) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success m-1',
+                    cancelButton: 'btn btn-danger m-1'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                    setTimeout(() => {
+                        window.location.href = url;
+                    }, 1000);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your data is safe :)',
+                        'error'
+                    )
+                }
+            })
+        }
+
+    </script>
+
+    <script src="/admin/js/activeSidebar.js"></script>
+    <script src="/admin/js/toasts.js"></script>
+</body>
+
+</html>
